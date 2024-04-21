@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { Dispatch } from '../../store';
-import todoService from '../service/FakeTodoService';
+import todoService from '../services/FakeTodoService';
 import { Todo } from './Todo';
 
-interface State {
+export interface TodosState {
   hasError: boolean;
   isLoading: boolean;
   lowerCaseTodoFilterText: string;
@@ -12,7 +12,7 @@ interface State {
   todos: Todo[];
 }
 
-const initialState: State = {
+const initialState: TodosState = {
   hasError: false,
   isLoading: false,
   lowerCaseTodoFilterText: '',
@@ -60,25 +60,28 @@ const todosSlice = createSlice({
       }
     },
 
-    todoAddingSucceeded: (state: State, action: PayloadAction<Todo>) => {
+    todoAddingSucceeded: (state: TodosState, action: PayloadAction<Todo>) => {
       state.hasError = false;
       state.todos.push(action.payload);
     },
 
-    todoAddingFailed: (state: State) => {
+    todoAddingFailed: (state: TodosState) => {
       state.hasError = true;
     },
 
-    startFetchingTodos: (state: State) => {
+    startFetchingTodos: (state: TodosState) => {
       state.isLoading = true;
     },
 
-    todosFetchingSucceeded: (state: State, action: PayloadAction<Todo[]>) => {
+    todosFetchingSucceeded: (
+      state: TodosState,
+      action: PayloadAction<Todo[]>
+    ) => {
       state.isLoading = false;
       state.todos = action.payload;
     },
 
-    todosFetchingFailed: (state: State) => {
+    todosFetchingFailed: (state: TodosState) => {
       state.isLoading = false;
       state.hasError = true;
     }
