@@ -1,0 +1,114 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
+import { Dispatch } from '../../store';
+import todoService from '../service/FakeTodoService';
+import { Todo } from './Todo';
+
+interface State {
+  hasError: boolean;
+  isLoading: boolean;
+  lowerCaseTodoFilterText: string;
+  shouldShowUndoneOnly: boolean;
+  todos: Todo[];
+}
+
+const initialState: State = {
+  hasError: false,
+  isLoading: false,
+  lowerCaseTodoFilterText: '',
+  shouldShowUndoneOnly: false,
+  todos: []
+};
+
+const todosSlice = createSlice({
+  name: 'todos',
+  initialState,
+  reducers: {
+    clearError: (state) => {
+      state.hasError = false;
+    },
+
+    editTodo: (state, action: { payload: { id: string; title: string } }) => {
+      const todo = state.todos.find((todo) => todo.id === action.payload.id);
+
+      if (todo) {
+        todo.title = action.payload.title;
+      }
+    },
+
+    removeTodo: (state, action: PayloadAction<string>) => {
+      const index = state.todos.findIndex((todo) => todo.id === action.payload);
+
+      if (index !== -1) {
+        state.todos.splice(index, 1);
+      }
+    },
+
+    toggleShouldShowUndoneOnly: (state) => {
+      state.shouldShowUndoneOnly = !state.shouldShowUndoneOnly;
+    },
+
+    setTodoFilter: (state, action: PayloadAction<string>) => {
+      state.lowerCaseTodoFilterText = action.payload;
+    },
+
+    toggleTodoDone: (state, action: PayloadAction<string>) => {
+      const todo = state.todos.find((todo) => todo.id === action.payload);
+
+      if (todo) {
+        todo.isDone = !todo.isDone;
+      }
+    },
+
+    todoAddingSucceeded: (state: State, action: PayloadAction<Todo>) => {
+      state.hasError = false;
+      state.todos.push(action.payload);
+    },
+
+    todoAddingFailed: (state: State) => {
+      state.hasError = true;
+    },
+
+    startFetchingTodos: (state: State) => {
+      state.isLoading = true;
+    },
+
+    todosFetchingSucceeded: (state: State, action: PayloadAction<Todo[]>) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    },
+
+    todosFetchingFailed: (state: State) => {
+      state.isLoading = false;
+      state.hasError = true;
+    }
+  }
+});
+
+export const {
+  clearError,
+  editTodo,
+  removeTodo,
+  toggleShouldShowUndoneOnly,
+  setTodoFilter,
+  toggleTodoDone,
+  todoAddingSucceeded,
+  todoAddingFailed,
+  startFetchingTodos,
+  todosFetchingSucceeded,
+  todosFetchingFailed
+} = todosSlice.actions;
+
+export default todosSlice.reducer;
+
+export const addTodo = (title: string) => async (dispatch: Dispatch) => {
+  const todo = { id: uuidv4(), title, isDone: false };
+  const error = await todoService.createTodo(todo);
+  dispatch(error ? todoAddingFailed() : todoAddingSucceeded(todo));
+};
+
+export const fetchTodos = () => async (dispatch: Dispatch) => {
+  dispatch(startFetchingTodos());
+  const [todos, error] = await todoService.getTodos();
+  dispatch(error ? todosFetchingFailed() : todosFetchingSucceeded(todos));
+};
