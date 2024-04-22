@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 import { Dispatch } from '../../store';
 import todoService from '../services/FakeTodoService';
 import { Todo } from './Todo';
@@ -103,12 +102,6 @@ export const {
 } = todosSlice.actions;
 
 export default todosSlice.reducer;
-
-export const addTodo = (title: string) => async (dispatch: Dispatch) => {
-  const todo = { id: uuidv4(), title, isDone: false };
-  const error = await todoService.createTodo(todo);
-  dispatch(error ? todoAddingFailed() : todoAddingSucceeded(todo));
-};
 
 export const fetchTodos = () => async (dispatch: Dispatch) => {
   dispatch(startFetchingTodos());

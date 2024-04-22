@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { store } from '../../../store';
-import { addTodo } from '../../slices/todosSlice';
+import addTodo from '../../slices/actions/addTodo';
 import classNames from './AddTodo.module.scss';
 
 export default function AddTodo() {

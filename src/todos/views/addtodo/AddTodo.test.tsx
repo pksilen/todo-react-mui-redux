@@ -1,13 +1,12 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act, render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
+import { store } from '../../../store';
+import addTodo from '../../slices/actions/addTodo';
 import AddTodo from './AddTodo';
 
-const mockAddTodo = jest.fn();
-
-jest.mock('../../slices/todos/todosStore', () => () => ({
-  addTodo: mockAddTodo
-}));
+jest.mock('../../../store');
+jest.mock('../../slices/actions/addTodo');
 
 describe('AddTodo', () => {
   it('renders input for todo title and button for adding todo', () => {
@@ -28,15 +27,18 @@ describe('AddTodo', () => {
     // GIVEN
     render(<AddTodo />);
     const todoTitleInput = screen.getByLabelText(/Add new todo/i);
+
     const addTodoButton = screen.getByRole('button', {
       name: /Add todo/i
     });
 
+    // WHEN
     act(() => user.type(todoTitleInput, 'Test todo'));
     act(() => user.click(addTodoButton));
 
     // THEN
-    expect(mockAddTodo).toHaveBeenCalledWith('Test todo');
+    expect(addTodo).toHaveBeenCalledWith('Test todo');
+    expect(store.dispatch).toHaveBeenCalled();
   });
 
   it('does not add todo when todo title is empty', () => {
@@ -51,6 +53,6 @@ describe('AddTodo', () => {
     act(() => user.click(addTodoButton));
 
     // THEN
-    expect(mockAddTodo).not.toHaveBeenCalled();
+    expect(store.dispatch).not.toHaveBeenCalled();
   });
 });
