@@ -1,5 +1,6 @@
 import todoService from '../services/FakeTodoService';
-import reducer, { addTodo, clearError, TodosState } from './todosSlice';
+import reducer, {  clearError, TodosState } from './todosSlice';
+import addTodo from './actions/addTodo';
 
 jest.mock('../services/FakeTodoService');
 
