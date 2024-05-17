@@ -53,7 +53,7 @@ const todosSlice = createSlice({
     },
 
     setTodoFilter: (state, action: PayloadAction<string>) => {
-      state.lowerCaseTodoFilterText = action.payload;
+      state.lowerCaseTodoFilterText = action.payload.toLowerCase();
     },
 
     startFetchingTodos: (state: TodosState) => {

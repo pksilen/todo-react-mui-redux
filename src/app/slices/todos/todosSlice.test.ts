@@ -1,6 +1,5 @@
-import todoService from '../../services/FakeTodoService';
-import addTodo from './actions/addTodo';
-import reducer, { TodosState, clearError } from './todosSlice';
+import { todoService } from 'app/services/FakeTodoService';
+import { TodosState, addTodo, clearError, todosReducer } from './todosSlice';
 
 jest.mock('../../services/FakeTodoService');
 
@@ -11,7 +10,7 @@ describe('todosReducer', () => {
       const initialState = { hasError: true };
 
       // WHEN
-      const newState = reducer(initialState as TodosState, clearError());
+      const newState = todosReducer(initialState as TodosState, clearError());
 
       // THEN
       expect(newState.hasError).toBe(false);
