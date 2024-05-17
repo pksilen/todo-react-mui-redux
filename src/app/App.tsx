@@ -1,30 +1,30 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { useSelector } from 'react-redux';
-import { AppState } from '../store';
-import AddTodo from '../todos/views/addtodo/AddTodo';
-import ErrorCatcher from '../todos/views/errorcatcher/ErrorCatcher';
-import Header from '../todos/views/header/Header';
-import Todos from '../todos/views/todos/Todos';
-import ViewControls from '../todos/views/viewcontrols/ViewControls';
+import { Provider, useSelector } from 'react-redux';
 import classNames from './App.module.scss';
+import AddTodo from './components/addtodo/AddTodo';
+import ViewControls from './components/controls/ViewControls';
+import ErrorCatcher from './components/errorboundary/ErrorCatcher';
+import Header from './components/header/Header';
+import Todos from './components/todos/Todos';
+import { AppState, store } from './store';
 
 export default function App() {
-  const themeOptions = useSelector(
-    (state: AppState) => state.viewControls.themeOptions
-  );
+  const themeOptions = useSelector((state: AppState) => state.controls.themeOptions);
 
   return (
-    <div className={classNames.container}>
-      <ThemeProvider theme={createTheme(themeOptions)}>
-        <CssBaseline />
-        <Header />
-        <ViewControls />
-        <ErrorCatcher>
-          <Todos />
-          <AddTodo />
-        </ErrorCatcher>
-      </ThemeProvider>
-    </div>
+    <Provider store={store}>
+      <div className={classNames.container}>
+        <ThemeProvider theme={createTheme(themeOptions)}>
+          <CssBaseline />
+          <Header />
+          <ViewControls />
+          <ErrorCatcher>
+            <Todos />
+            <AddTodo />
+          </ErrorCatcher>
+        </ThemeProvider>
+      </div>
+    </Provider>
   );
 }

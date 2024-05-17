@@ -1,5 +1,9 @@
 {
-  "plugins": ["prettier-plugin-organize-imports"],
+  "printWidth": 100,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "singleQuote": true,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "importOrder": ["^(!app).*$", "^app/", "^[\\.\\./]", "^[\\./]"],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
 }
