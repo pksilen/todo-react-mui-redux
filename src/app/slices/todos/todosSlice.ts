@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { todoService } from '../../services/FakeTodoService';
-import { Dispatch } from '../../store';
+import { todoService } from 'app/services/FakeTodoService';
+import { Dispatch } from 'app/store';
 import { Todo } from './Todo';
 
 export type TodosState = {

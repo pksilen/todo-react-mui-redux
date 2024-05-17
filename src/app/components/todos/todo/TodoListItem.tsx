@@ -5,8 +5,8 @@ import { EditTextInput } from 'app/common/components/inputs/EditTextInput';
 import { ListItem } from 'app/common/components/list/ListItem';
 import { ListItemIcon } from 'app/common/components/list/ListItemIcon';
 import { ListItemText } from 'app/common/components/list/ListItemText';
-import { Todo } from '../../../slices/todos/Todo';
-import { removeTodo, setEditableTodo, toggleTodoDone } from '../../../slices/todos/todosSlice';
+import { Todo } from 'app/slices/todos/Todo';
+import { removeTodo, setEditableTodo, toggleTodoDone } from 'app/slices/todos/todosSlice';
 import classes from './TodoListItem.module.scss';
 import { useTodo } from './useTodo';
 

@@ -17,7 +17,7 @@ import {
   showTodosList,
   showTodosTable
 } from 'app/slices/controlsSlice';
-import { toggleShouldShowUndoneTodosOnly } from '../../slices/todos/todosSlice';
+import { toggleShouldShowUndoneTodosOnly } from 'app/slices/todos/todosSlice';
 import classes from './Controls.module.scss';
 
 type ViewMode = 'dark' | 'light';

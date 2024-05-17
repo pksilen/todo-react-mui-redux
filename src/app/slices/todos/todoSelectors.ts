@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { isAny } from '../../common/utils/isAny';
-import { AppState } from '../../store';
+import { isAny } from 'app/common/utils/isAny';
+import { AppState } from 'app/store';
 import { Todo } from './Todo';
 
 export const selectUndoneTodoCount = createSelector(

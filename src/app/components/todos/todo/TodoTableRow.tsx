@@ -5,8 +5,8 @@ import { Checkbox } from 'app/common/components/inputs/Checkbox';
 import { EditTextInput } from 'app/common/components/inputs/EditTextInput';
 import { TableCell } from 'app/common/components/table/TableCell';
 import { TableRow } from 'app/common/components/table/TableRow';
-import { Todo } from '../../../slices/todos/Todo';
-import { removeTodo, setEditableTodo, toggleTodoDone } from '../../../slices/todos/todosSlice';
+import { Todo } from 'app/slices/todos/Todo';
+import { removeTodo, setEditableTodo, toggleTodoDone } from 'app/slices/todos/todosSlice';
 import classes from './TodoTableRow.module.scss';
 import { useTodo } from './useTodo';
 

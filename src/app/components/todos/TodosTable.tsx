@@ -2,7 +2,7 @@ import React from 'react';
 import { Pending } from 'app/common/components/Pending';
 import { Table } from 'app/common/components/table/Table';
 import { Heading4 } from 'app/common/components/typography/Heading4';
-import { Todo } from '../../slices/todos/Todo';
+import { Todo } from 'app/slices/todos/Todo';
 import classes from './Todos.module.scss';
 import { TodoTableRow } from './todo/TodoTableRow';
 import { useTodos } from './useTodos';

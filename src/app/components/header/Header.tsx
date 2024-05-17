@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Badge } from 'app/common/components/badges/Badge';
 import { SearchInput } from 'app/common/components/inputs/SearchInput';
 import { Heading2 } from 'app/common/components/typography/Heading2';
-import { selectUndoneTodoCount } from '../../slices/todos/todoSelectors';
-import { setTodoFilter } from '../../slices/todos/todosSlice';
+import { selectUndoneTodoCount } from 'app/slices/todos/todoSelectors';
+import { setTodoFilter } from 'app/slices/todos/todosSlice';
 import classes from './Header.module.scss';
 
 export const Header = () => {

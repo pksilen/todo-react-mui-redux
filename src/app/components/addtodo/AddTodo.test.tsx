@@ -2,7 +2,7 @@
 import { act, render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import { addTodo } from 'app/slices/todos/todosSlice';
-import { store } from '../../store';
+import { store } from 'app/store';
 import { AddTodo } from './AddTodo';
 
 
