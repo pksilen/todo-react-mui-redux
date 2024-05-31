@@ -9,7 +9,7 @@ import {
   ListIcon,
   TableIcon
 } from 'app/common/components/icons/Icons';
-import { Switch } from 'app/common/components/switches/Switch';
+import { Switch } from 'app/common/components/inputs/Switch';
 import {
   ViewType,
   activateDarkMode,

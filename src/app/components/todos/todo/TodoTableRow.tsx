@@ -6,7 +6,6 @@ import { EditTextInput } from 'app/common/components/inputs/EditTextInput';
 import { TableCell } from 'app/common/components/table/TableCell';
 import { TableRow } from 'app/common/components/table/TableRow';
 import { Todo } from 'app/slices/todos/Todo';
-import { removeTodo, setEditableTodo, toggleTodoDone } from 'app/slices/todos/todosSlice';
 import classes from './TodoTableRow.module.scss';
 import { useTodo } from './useTodo';
 
@@ -15,31 +14,26 @@ type Props = {
 };
 
 export const TodoTableRow = ({ todo: { id, title, isDone } }: Props) => {
-  const { dispatch, editableTodoId, editTodoTitle } = useTodo(id);
+  const { editTodoTitle, isEditable, removeTodo, setEditableTodo, toggleTodoDone } = useTodo(id);
   const titleClasses = classNames(classes.title, isDone && classes.isDone);
 
   return (
     <TableRow>
       <TableCell>
-        <Checkbox
-          aria-label={title}
-          isChecked={isDone}
-          color="success"
-          onChange={() => dispatch(toggleTodoDone(id))}
-        />
+        <Checkbox aria-label={title} isChecked={isDone} color="success" onChange={toggleTodoDone} />
       </TableCell>
-      {editableTodoId === id ? (
+      {isEditable ? (
         <TableCell>
           <EditTextInput onEditComplete={editTodoTitle} text={title} />
         </TableCell>
       ) : (
-        <TableCell className={titleClasses} onDoubleClick={() => dispatch(setEditableTodo(id))}>
+        <TableCell className={titleClasses} onDoubleClick={setEditableTodo}>
           {title}
         </TableCell>
       )}
       <TableCell className={classes.buttons}>
-        <IconButton icon={<EditIcon />} onClick={() => dispatch(setEditableTodo(id))} />
-        <IconButton icon={<RemoveIcon />} onClick={() => dispatch(removeTodo(id))} />
+        <IconButton icon={<EditIcon />} onClick={setEditableTodo} />
+        <IconButton icon={<RemoveIcon />} onClick={removeTodo} />
       </TableCell>
     </TableRow>
   );
