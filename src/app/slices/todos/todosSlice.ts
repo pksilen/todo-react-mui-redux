@@ -28,16 +28,16 @@ const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    clearError: (state) => {
-      state.hasError = false;
-    },
-
-    editTodo: (state, action: PayloadAction<{ id: string; title: string }>) => {
+    changeTodoTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
       const todo = findTodo(state.todos, action.payload.id);
 
       if (todo) {
         todo.title = action.payload.title;
       }
+    },
+
+    clearError: (state) => {
+      state.hasError = false;
     },
 
     removeTodo: (state, action: PayloadAction<string>) => {
@@ -95,7 +95,7 @@ const todosSlice = createSlice({
 
 export const {
   clearError,
-  editTodo,
+  changeTodoTitle,
   removeTodo,
   setTodoAsEditable,
   setTodoFilter,

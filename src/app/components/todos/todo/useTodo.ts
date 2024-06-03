@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  editTodo,
+  changeTodoTitle,
   removeTodo,
   setTodoAsEditable,
   toggleTodoDone
@@ -13,7 +13,7 @@ export const useTodo = (id: string) => {
 
   return {
     isEditable: editableTodoId === id,
-    editTitle: (title: string) => dispatch(editTodo({ id, title })),
+    changeTitle: (title: string) => dispatch(changeTodoTitle({ id, title })),
     remove: () => dispatch(removeTodo(id)),
     setAsEditable: () => dispatch(setTodoAsEditable(id)),
     toggleDone: () => dispatch(toggleTodoDone(id))
