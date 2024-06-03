@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { editTodo, removeTodo, setEditableTodo, toggleTodoDone } from 'app/slices/todos/todosSlice';
+import {
+  editTodo,
+  removeTodo,
+  setTodoAsEditable,
+  toggleTodoDone
+} from 'app/slices/todos/todosSlice';
 import { AppState } from 'app/store';
 
 export const useTodo = (id: string) => {
@@ -8,9 +13,9 @@ export const useTodo = (id: string) => {
 
   return {
     isEditable: editableTodoId === id,
-    editTodoTitle: (title: string) => dispatch(editTodo({ id, title })),
-    removeTodo: () => dispatch(removeTodo(id)),
-    setEditableTodo: () => dispatch(setEditableTodo(id)),
-    toggleTodoDone: () => dispatch(toggleTodoDone(id))
+    editTitle: (title: string) => dispatch(editTodo({ id, title })),
+    remove: () => dispatch(removeTodo(id)),
+    setAsEditable: () => dispatch(setTodoAsEditable(id)),
+    toggleDone: () => dispatch(toggleTodoDone(id))
   };
 };

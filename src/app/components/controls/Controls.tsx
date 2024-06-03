@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import {
   IconRadioButtonGroup,
   IconRadioButtonProps
@@ -10,30 +9,22 @@ import {
   TableIcon
 } from 'app/common/components/icons/Icons';
 import { Switch } from 'app/common/components/inputs/Switch';
-import {
-  ViewType,
-  activateDarkMode,
-  activateLightMode,
-  showTodosList,
-  showTodosTable
-} from 'app/slices/controlsSlice';
-import { toggleShouldShowUndoneTodosOnly } from 'app/slices/todos/todosSlice';
+import { ViewMode, ViewType } from 'app/slices/controls/controlsSlice';
 import classes from './Controls.module.scss';
-
-type ViewMode = 'dark' | 'light';
+import { useControls } from './useControls';
 
 export const Controls = () => {
-  const dispatch = useDispatch();
+  const { setViewMode, setViewType, toggleShouldShowUndoneTodosOnly } = useControls();
 
   const viewTypeButtons: IconRadioButtonProps<ViewType>[] = [
     {
       icon: <ListIcon />,
-      onClick: () => dispatch(showTodosList()),
+      onClick: () => setViewType('list'),
       value: 'list'
     },
     {
       icon: <TableIcon />,
-      onClick: () => dispatch(showTodosTable()),
+      onClick: () => setViewType('table'),
       value: 'table'
     }
   ];
@@ -41,12 +32,12 @@ export const Controls = () => {
   const viewModeButtons: IconRadioButtonProps<ViewMode>[] = [
     {
       icon: <LightModeIcon />,
-      onClick: () => dispatch(activateLightMode()),
+      onClick: () => setViewMode('light'),
       value: 'light'
     },
     {
       icon: <DarkModeIcon />,
-      onClick: () => dispatch(activateDarkMode()),
+      onClick: () => setViewMode('dark'),
       value: 'dark'
     }
   ];
@@ -54,10 +45,7 @@ export const Controls = () => {
   return (
     <section className={classes.controls}>
       <IconRadioButtonGroup buttons={viewTypeButtons} initialValue="list" />
-      <Switch
-        label="Show undone only"
-        onClick={() => dispatch(toggleShouldShowUndoneTodosOnly())}
-      />
+      <Switch label="Show undone only" onClick={toggleShouldShowUndoneTodosOnly} />
       <IconRadioButtonGroup buttons={viewModeButtons} initialValue="dark" />
     </section>
   );

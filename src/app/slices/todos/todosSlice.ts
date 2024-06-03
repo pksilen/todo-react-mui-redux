@@ -48,7 +48,7 @@ const todosSlice = createSlice({
       }
     },
 
-    setEditableTodo: (state, action: PayloadAction<string | null>) => {
+    setTodoAsEditable: (state, action: PayloadAction<string | null>) => {
       state.editableTodoId = action.payload;
     },
 
@@ -97,7 +97,7 @@ export const {
   clearError,
   editTodo,
   removeTodo,
-  setEditableTodo,
+  setTodoAsEditable,
   setTodoFilter,
   startFetchingTodos,
   todoAddingFailed,
